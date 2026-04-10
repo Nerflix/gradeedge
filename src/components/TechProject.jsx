@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { techProjects, categoryColors } from '../data/techProjects'
+import { useLang } from '../context/LangContext'
+import { techProjects } from '../data/techProjects'
 
 const tagClassMap = {
   'Machine Learning':    'tag--blue',
@@ -13,7 +14,8 @@ const tagClassMap = {
 
 export default function TechProjects() {
   const [filter, setFilter] = useState('All')
-  const refs = useRef([])
+  const refs                = useRef([])
+  const { t }               = useLang()
 
   const categories = ['All', ...new Set(techProjects.map(p => p.category))]
   const filtered   = filter === 'All' ? techProjects : techProjects.filter(p => p.category === filter)
@@ -31,19 +33,12 @@ export default function TechProjects() {
     <section id="tech" className="section section--alt">
       <div className="container">
         <div className="section-center">
-          <p className="section-label">GitHub</p>
-          <h2 className="section-title">Tech <span>Projects</span></h2>
+          <p className="section-label">{t('tech_label')}</p>
+          <h2 className="section-title">{t('tech_title')} <span>{t('tech_title_span')}</span></h2>
           <div className="divider divider--center" />
-          <p className="section-desc">
-            From machine learning pipelines to blockchain contracts — built and deployed.
-          </p>
-          <a
-            href="https://github.com/Nerflix"
-            target="_blank"
-            rel="noreferrer"
-            className="tech-github-link"
-          >
-            View all on GitHub →
+          <p className="section-desc">{t('tech_desc')}</p>
+          <a href="https://github.com/Nerflix" target="_blank" rel="noreferrer" className="tech-github-link">
+            {t('tech_github')}
           </a>
         </div>
 
@@ -72,17 +67,14 @@ export default function TechProjects() {
             >
               <div className="tech-card__top">
                 <span className={`tag ${tagClassMap[p.category] || ''}`}>{p.category}</span>
-                {p.featured && <span className="tech-card__featured">★ Featured</span>}
+                {p.featured && <span className="tech-card__featured">{t('tech_featured')}</span>}
               </div>
-
               <h3 className="tech-card__title">{p.title}</h3>
               <p className="tech-card__desc">{p.description}</p>
-
               <div className="tags-row">
-                {p.tags.slice(0, 4).map(t => <span key={t} className="pill">{t}</span>)}
+                {p.tags.slice(0, 4).map(tag => <span key={tag} className="pill">{tag}</span>)}
                 {p.tags.length > 4 && <span className="pill">+{p.tags.length - 4}</span>}
               </div>
-
               <div className="tech-card__footer">
                 <span>github.com/Nerflix</span>
                 <span className="tech-card__arrow">→</span>

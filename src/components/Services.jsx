@@ -1,16 +1,18 @@
 import { useEffect, useRef } from 'react'
+import { useLang } from '../context/LangContext'
 
 const services = [
-  { icon: '✍️', title: 'Essays & Reports',         desc: 'Undergraduate to postgraduate level. Any discipline, any citation style.' },
-  { icon: '📖', title: 'Theses & Dissertations',   desc: 'Full dissertation writing, chapter-by-chapter support, and structural editing.' },
-  { icon: '🔬', title: 'Research & Case Studies',  desc: 'Literature reviews, data analysis, discussion and recommendations.' },
-  { icon: '📝', title: 'Grammar & Citations',      desc: 'APA, Harvard, Chicago — precise citation formatting and grammar polish.' },
-  { icon: '💻', title: 'Technical Writing',        desc: 'CS assignments, data science reports, algorithm documentation.' },
-  { icon: '⚡', title: 'Urgent Turnaround',        desc: 'Deadline approaching? We deliver quality work fast.' },
+  { icon: '✍️', titleKey: 'service1_title', descKey: 'service1_desc' },
+  { icon: '📖', titleKey: 'service2_title', descKey: 'service2_desc' },
+  { icon: '🔬', titleKey: 'service3_title', descKey: 'service3_desc' },
+  { icon: '📝', titleKey: 'service4_title', descKey: 'service4_desc' },
+  { icon: '💻', titleKey: 'service5_title', descKey: 'service5_desc' },
+  { icon: '⚡', titleKey: 'service6_title', descKey: 'service6_desc' },
 ]
 
 export default function Services() {
-  const refs = useRef([])
+  const refs  = useRef([])
+  const { t } = useLang()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,34 +26,29 @@ export default function Services() {
   return (
     <section id="services" className="section section--alt">
       <div className="container">
-        <div className="section-center" ref={el => refs.current[0] = el} style={{ transitionDelay: '0ms' }}>
-          <p className="section-label">What We Offer</p>
-          <h2 className="section-title">Academic <span>Excellence</span></h2>
+        <div className="section-center">
+          <p className="section-label">{t('services_label')}</p>
+          <h2 className="section-title">{t('services_title')} <span>{t('services_title_span')}</span></h2>
           <div className="divider divider--center" />
-          <p className="section-desc">
-            Comprehensive academic support tailored to international students.
-            100% Confidential · Fast Turnaround · Satisfaction Guaranteed.
-          </p>
+          <p className="section-desc">{t('services_desc')}</p>
         </div>
 
         <div className="services-grid">
           {services.map((s, i) => (
             <div
-              key={s.title}
-              ref={el => refs.current[i + 1] = el}
+              key={s.titleKey}
+              ref={el => refs.current[i] = el}
               className="service-card fade-up"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <div className="service-card__icon">{s.icon}</div>
-              <h3 className="service-card__title">{s.title}</h3>
-              <p className="service-card__desc">{s.desc}</p>
+              <h3 className="service-card__title">{t(s.titleKey)}</h3>
+              <p className="service-card__desc">{t(s.descKey)}</p>
             </div>
           ))}
         </div>
 
-        <p className="services-note">
-          Deadline approaching? Contact us now — we deliver quality fast.
-        </p>
+        <p className="services-note">{t('services_note')}</p>
       </div>
     </section>
   )

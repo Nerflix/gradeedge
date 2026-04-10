@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
+import { useLang } from '../context/LangContext'
 
 export default function Hero() {
-  const ref = useRef(null)
+  const ref    = useRef(null)
+  const { t }  = useLang()
 
   useEffect(() => {
     const el = ref.current
@@ -19,38 +21,33 @@ export default function Hero() {
           <img src="/Badge.jpeg" alt="GradeEdge Badge" className="hero__badge" />
         </div>
 
-        <h1 className="hero__title">GradeEdge</h1>
-
-        <p className="hero__tagline">Behind Every Great Student</p>
-
-        <p className="hero__sub">
-          Expert academic writing, research support, and technical development.
-          Serving international students across RMIT and beyond.
-        </p>
+        <h1 className="hero__title">{t('hero_title')}</h1>
+        <p className="hero__tagline">{t('hero_tagline')}</p>
+        <p className="hero__sub">{t('hero_sub')}</p>
 
         <div className="hero__btns">
-          <a href="#academic" className="btn btn--gold">View Academic Work</a>
-          <a href="#contact"  className="btn btn--purple">Contact on WeChat</a>
+          <a href="#academic" className="btn btn--gold">{t('hero_btn1')}</a>
+          <a href="#contact"  className="btn btn--purple">{t('hero_btn2')}</a>
         </div>
 
         <div className="hero__stats">
           <div>
             <div className="hero__stat-num">8+</div>
-            <div className="hero__stat-label">Disciplines</div>
+            <div className="hero__stat-label">{t('hero_stat1_label')}</div>
           </div>
           <div>
             <div className="hero__stat-num">10+</div>
-            <div className="hero__stat-label">Tech Projects</div>
+            <div className="hero__stat-label">{t('hero_stat2_label')}</div>
           </div>
           <div>
             <div className="hero__stat-num">100%</div>
-            <div className="hero__stat-label">Confidential</div>
+            <div className="hero__stat-label">{t('hero_stat3_label')}</div>
           </div>
         </div>
       </div>
 
       <div className="hero__scroll">
-        <span>Scroll</span>
+        <span>{t('hero_scroll')}</span>
         <div className="hero__scroll-line" />
       </div>
     </section>
